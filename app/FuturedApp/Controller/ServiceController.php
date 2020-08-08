@@ -28,12 +28,22 @@ class ServiceController
 
     public function get(ApiRequest $request)
     {
+        return (new \Response())->add($this->service->getBill(
+            $request->getParameter('bill_id')
+        ), 'bill');
 
     }
 
     public function post(ApiRequest $request)
     {
+        $data = $request->getPostData();
+        $bill = $this->service->addPayment(
+            $data['register_id'],
+            $data['price'],
+            $data['amount']
+        );
 
+        return (new \Response())->add($bill, 'bill');
     }
 
     public function delete(ApiRequest $request)

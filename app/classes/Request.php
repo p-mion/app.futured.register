@@ -14,6 +14,10 @@ class Request
      * @var array
      */
     protected $headers = [];
+    /**
+     * @var array
+     */
+    protected $post_data;
 
     /**
      * @var array
@@ -109,5 +113,29 @@ class Request
     {
 
         return $this->headers[ $key ] ?: null;
+    }
+
+    public function getPostData()
+    {
+
+        if ($this->post_data === null) {
+
+            $data = file_get_contents('php://input');
+            if ($this->getContentType() === 'application/json') {
+
+                $this->post_data = json_decode($data, true);
+            } else {
+
+                parse_str($data, $this->post_data);
+            }
+        }
+
+        return $this->post_data;
+    }
+
+    public function getContentType()
+    {
+
+        return $_SERVER[ 'CONTENT_TYPE' ] ?? '';
     }
 }

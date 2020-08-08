@@ -68,7 +68,6 @@ class Response
     public function add($var, $key = 'result') {
 
         $this->result[$key] = $var;
-
         return $this;
     }
 
@@ -78,6 +77,7 @@ class Response
     public function output()
     {
 
-        return json_encode($this->result);
+        header('Content-Type: application/json');
+        print json_encode($this->result);
     }
 }

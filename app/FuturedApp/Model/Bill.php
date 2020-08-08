@@ -47,11 +47,12 @@ class Bill
 
     /**
      * @param float $price
+     * @return boolean
      */
-    public function setPriceRaw($price): void
+    public function setPriceRaw($price)
     {
-
-        $this->setPrice(filter_var(FILTER_SANITIZE_NUMBER_FLOAT, $price));
+        $this->setPrice( (float) $price);
+        return $this->price !== 0;
     }
 
     /**
@@ -72,10 +73,12 @@ class Bill
 
     /**
      * @param int $amount
+     * @return boolean
      */
-    public function setAmountRaw($amount): void
+    public function setAmountRaw($amount)
     {
         $this->setAmount((int)$amount);
+        return $this->amount !== 0;
     }
 
     /**

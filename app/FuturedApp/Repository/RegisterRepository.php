@@ -37,7 +37,7 @@ class RegisterRepository
     public function get($id): ?Register
     {
         $register = $this->getRegister();
-        $result = DB::instance()->getRecords(
+        $result = \DB::instance()->getRecords(
             sprintf('SELECT * FROM `%s` WHERE id=:id', $register->getTableName()),
             [ 'id' => (int) $id ],
             $register

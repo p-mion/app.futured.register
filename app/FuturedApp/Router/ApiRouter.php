@@ -52,9 +52,9 @@ class ApiRouter extends Router
                     case 'GET':
                     case 'HEAD':
 
-                        if ($request->hasParameter('payment_id')) {
+                        if ($request->hasParameter('bill_id')) {
 
-                            $response = $controller->get($request->getParam('payment_id'), $request);
+                            $response = $controller->get($request);
                         } else {
 
                             $response = $controller->all($request);
