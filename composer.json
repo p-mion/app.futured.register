@@ -1,0 +1,19 @@
+{
+    "name": "blue/app.futured.register",
+    "authors": [
+        {
+            "name": "Pavel Musil",
+            "email": "pavel@musil-it.eu"
+        }
+    ],
+    "require": {
+    },
+    "autoload": {
+        "classmap": [
+            "app"
+        ],
+        "files": [
+            "app/env.php"
+        ]
+    }
+}
