@@ -9,11 +9,15 @@
     "require": {
     },
     "autoload": {
+        "psr-4": {
+            "FuturedApp\\": "app/FuturedApp",
+            "\\": "app/classes"
+        },
         "classmap": [
-            "app"
+            "app/classes"
         ],
         "files": [
-            "app/env.php"
+            "app/helpers/env.php"
         ]
     }
 }
