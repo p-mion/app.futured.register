@@ -19,9 +19,9 @@ class CashService
         $this->billRepostory = new BillRepository();
     }
 
-    public function addPayment($token, $price, $amount = 1)
+    public function addPayment($register_id, $price, $amount = 1)
     {
-        $register = $this->registerRepostory->getByToken($token);
+        $register = $this->registerRepostory->get($register_id);
         if ($register) {
 
 
@@ -29,16 +29,22 @@ class CashService
 
     }
 
-    public function cancelPayment($token, $bill_id)
+    public function cancelPayment($bill_id)
     {
 
 
     }
 
-    public function deletePayment($token, $bill_id)
+    public function deletePayment($bill_id)
     {
 
 
     }
 
+    public function getAllBills($register_id) {
+
+
+        return $this->billRepostory->all($register_id);
+
+    }
 }

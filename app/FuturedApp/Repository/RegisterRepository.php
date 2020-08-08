@@ -34,16 +34,13 @@ class RegisterRepository
      * @param string $token
      * @return Register|null
      */
-    public function getByToken($token): ?Register
+    public function get($id): ?Register
     {
-
-        $register = clone $this->getRegister();
-        $register->setTokenRaw($token);
-
+        $register = $this->getRegister();
         $result = DB::instance()->getRecords(
-            sprintf('SELECT * FROM `%s` WHERE token=:token', $register->getTableName()),
-            [ 'token' => $register->getToken() ],
-            $this->getRegister()
+            sprintf('SELECT * FROM `%s` WHERE id=:id', $register->getTableName()),
+            [ 'id' => (int) $id ],
+            $register
         );
 
         if (is_array($result)) {

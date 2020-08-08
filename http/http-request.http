@@ -1,5 +1,15 @@
-GET http://app.futured.register/v1/tester/6
+GET http://app.futured.register/v1/register/1/bill
 X-Token: d2a57dc1d883fd21fb9951699df71cc7
 
 ###
 GET http://app.futured.register/api_v1.php?tester
+X-Token: d2a57dc1d883fd21fb9951699df71cc7
+
+### Send POST request with json body
+POST http://app.futured.register/v1/register/1/bill
+Content-Type: application/json
+
+{
+  "id": 999,
+  "value": "content"
+}

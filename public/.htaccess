@@ -1,7 +1,5 @@
 RewriteEngine On
 
-RewriteRule ^v1 api_v1.php [L]
-
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^ index.php [L]

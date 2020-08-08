@@ -1,0 +1,84 @@
+<?php
+
+namespace FuturedApp\Router;
+
+use FuturedApp\Controller\ServiceController;
+use FuturedApp\Request\ApiRequest;
+use Router;
+use Response;
+
+class ApiRouter extends Router
+{
+
+    protected $version = 'v1';
+
+    /**
+     * @return bool
+     */
+    public function access(ApiRequest $request)
+    {
+
+        return $request->getHeader('X-Token') === env('API_TOKEN');
+    }
+
+    /**
+     * @return Response
+     */
+    public function response(ApiRequest $request)
+    {
+
+        if ($this->access($request)) {
+
+            if ($this->version !== $request->getParameter('version')) {
+
+                $response = new Response();
+                $response->forbidden('ap version mismatch');
+                return $response;
+            }
+
+
+            $controller = new ServiceController();
+
+            if (!$request->getParameter('register_id')) {
+
+                $response = new Response();
+                $response->notFound('register not found');
+
+            } else {
+
+
+                switch ($request->getMethod()) {
+
+                    case 'GET':
+                    case 'HEAD':
+
+                        if ($request->hasParameter('payment_id')) {
+
+                            $response = $controller->get($request->getParam('payment_id'), $request);
+                        } else {
+
+                            $response = $controller->all($request);
+                        }
+                        break;
+                    case 'POST':
+
+                        $response = $controller->post($request);
+                        break;
+
+                    case 'DELETE':
+
+                        $response = $controller->delete($request);
+                        break;
+                    default:
+
+                        $response = new Response();
+                        $response->notFound('service router action empty');
+                }
+            }
+            return $response;
+        }
+
+        return ( new Response() )->forbidden('access denied');
+    }
+
+}

@@ -77,15 +77,23 @@ class Request
 
             foreach ($this->param_map as $idx => $key) {
 
-                printf('%s: %s' . PHP_EOL, $key, $params[ $idx ]);
                 if (!empty($params[ $idx ])) {
-
 
                     $this->params[ $key ] = $params[ $idx ];
                 }
             }
         }
         return $this->params;
+    }
+
+    /**
+     * @param string $key
+     * @return bool
+     */
+    public function hasParameter($key)
+    {
+        $data = $this->resolveParams();
+        return !empty($data[ $key ]);
     }
 
     /**
@@ -97,8 +105,9 @@ class Request
         return $this->resolveParams();
     }
 
-    public function getHeader($key) {
+    public function getHeader($key)
+    {
 
-        return $this->headers[$key] ?: null;
+        return $this->headers[ $key ] ?: null;
     }
 }

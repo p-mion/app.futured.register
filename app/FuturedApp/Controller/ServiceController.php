@@ -3,6 +3,7 @@
 
 namespace FuturedApp\Controller;
 
+use FuturedApp\Request\ApiRequest;
 use FuturedApp\Service\CashService;
 
 class ServiceController
@@ -18,8 +19,25 @@ class ServiceController
         $this->service = new CashService();
     }
 
-    public function all(\Request $request) {
+    public function all(ApiRequest $request)
+    {
 
-        $this->service->getAllBills();
+        return (new \Response())->add($this->service->getAllBills(
+            $request->getParameter('register_id')), 'bills');
+    }
+
+    public function get(ApiRequest $request)
+    {
+
+    }
+
+    public function post(ApiRequest $request)
+    {
+
+    }
+
+    public function delete(ApiRequest $request)
+    {
+
     }
 }

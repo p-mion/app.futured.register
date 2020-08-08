@@ -34,23 +34,24 @@ class DB
     {
 
         $result = null;
-        $stmt = $this->conn()->query($query);
+
+        if (empty($params)) {
+
+            $stmt = $this->conn()->query($query);
+        } else {
+            $stmt = $this->conn()->prepare($query);
+            $stmt->execute($params);
+        }
         if ($stmt) {
-            foreach ($params as $attr => $value) {
 
-                $stmt->bindParam($attr, $value);
+            if (is_object($base)) {
+
+                $result = $stmt->fetchAll(PDO::FETCH_CLASS, get_class($base));
+            } else {
+
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             }
 
-            if ($stmt->execute()) {
-                if (is_object($base)) {
-
-                    $result = $stmt->fetchAll(PDO::FETCH_CLASS, $base);
-                } else {
-
-                    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                }
-
-            }
         }
         return $result;
     }

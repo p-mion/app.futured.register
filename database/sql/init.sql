@@ -22,18 +22,16 @@ SET FOREIGN_KEY_CHECKS = 1;
 CREATE TABLE `bills`
 (
     `id`          int(11) unsigned NOT NULL AUTO_INCREMENT,
-    `register_id` int(11)          NOT NULL,
+    `register_id` int(11) unsigned NOT NULL,
     `price`       decimal(10, 2)   NOT NULL DEFAULT '0.00',
     `amount`      int(11)          NOT NULL DEFAULT '1',
     `created_at`  datetime         NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (`id`),
-    CONSTRAINT `bill_register_bind` FOREIGN KEY (`id`) REFERENCES `registers` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
+    PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
-ALTER TABLE `bills` DROP FOREIGN KEY `bill_register_bind`;
 ALTER TABLE `bills`
-    ADD CONSTRAINT `bill_register_bind` FOREIGN KEY (`id`)
+    ADD CONSTRAINT `bill_register_bind` FOREIGN KEY (`register_id`)
         REFERENCES `registers` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 INSERT INTO `registers`
