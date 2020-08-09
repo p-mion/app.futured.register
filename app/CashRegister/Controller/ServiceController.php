@@ -85,9 +85,9 @@ class ServiceController
     {
         $data = $request->getPostData();
         $bill = $this->service->addPayment(
-            $data[ 'register_id' ],
+            $request->getParameter('register_id'),
             $data[ 'price' ],
-            $data[ 'amount' ]
+            $data[ 'amount' ] ?: 1
         );
 
         if (!$bill) {
