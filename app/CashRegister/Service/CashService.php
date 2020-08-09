@@ -1,10 +1,10 @@
 <?php
 
-namespace FuturedApp\Service;
+namespace CashRegister\Service;
 
-use FuturedApp\Model\Bill;
-use FuturedApp\Repository\RegisterRepository;
-use FuturedApp\Repository\BillRepository;
+use CashRegister\Model\Bill;
+use CashRegister\Repository\RegisterRepository;
+use CashRegister\Repository\BillRepository;
 
 class CashService
 {

@@ -1,7 +1,7 @@
 <?php
 
-use FuturedApp\Router\ApiRouter;
-use FuturedApp\Request\ApiRequest;
+use CashRegister\Router\ApiRouter;
+use CashRegister\Request\ApiRequest;
 
 require __DIR__ . '/../bootstrap/api.php';
 

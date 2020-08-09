@@ -1,9 +1,9 @@
 <?php
 
-namespace FuturedApp\Router;
+namespace CashRegister\Router;
 
-use FuturedApp\Controller\ServiceController;
-use FuturedApp\Request\ApiRequest;
+use CashRegister\Controller\ServiceController;
+use CashRegister\Request\ApiRequest;
 use Router;
 use Response;
 

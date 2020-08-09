@@ -11,7 +11,7 @@
     },
     "autoload": {
         "psr-4": {
-            "FuturedApp\\": "app/FuturedApp",
+            "CashRegister\\": "app/CashRegister",
             "\\": "app/classes"
         },
         "classmap": [

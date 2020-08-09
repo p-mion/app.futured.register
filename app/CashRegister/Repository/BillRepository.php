@@ -1,9 +1,9 @@
 <?php
 
-namespace FuturedApp\Repository;
+namespace CashRegister\Repository;
 
-use FuturedApp\Model\Bill;
-use FuturedApp\Model\Register;
+use CashRegister\Model\Bill;
+use CashRegister\Model\Register;
 
 /**
  * Class RegisterRepository

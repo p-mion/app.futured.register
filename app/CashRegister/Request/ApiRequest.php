@@ -1,6 +1,6 @@
 <?php
 
-namespace FuturedApp\Request;
+namespace CashRegister\Request;
 
 use Request;
 

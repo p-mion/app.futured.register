@@ -1,6 +1,6 @@
 <?php
 
-namespace FuturedApp\Model;
+namespace CashRegister\Model;
 
 /**
  * Class Bill

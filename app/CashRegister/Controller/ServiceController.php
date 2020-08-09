@@ -1,15 +1,15 @@
 <?php
 
 
-namespace FuturedApp\Controller;
+namespace CashRegister\Controller;
 
-use FuturedApp\Request\ApiRequest;
-use FuturedApp\Service\CashService;
+use CashRegister\Request\ApiRequest;
+use CashRegister\Service\CashService;
 use http\Env\Response;
 
 /**
  * Class ServiceController
- * @package FuturedApp\Controller
+ * @package CashRegister\Controller
  */
 class ServiceController
 {
