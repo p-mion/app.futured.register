@@ -77,7 +77,7 @@ class RegisterRepository
         $summary = new Summary();
 
         $result = \DB::instance()->getRecords(
-            sprintf('SELECT SUM(price) AS summary_price, 
+            sprintf('SELECT SUM(price*amount) AS summary_price, 
                 MAX(created_at) AS bill_last_date
                 FROM `%s` WHERE register_id=:register_id AND NOT canceled
                 GROUP BY register_id', $bill->getTableName()),

@@ -8,9 +8,13 @@ class Response
 {
 
     /**
-     * @var string
+     * @var mixed|string
      */
-    protected $response = "";
+    protected $type = 'json';
+    /**
+     * @var string[]
+     */
+    protected $types = [ 'json', 'text' ]; //  'xml', 'csv',  ];
     /**
      * @var array
      */
@@ -19,27 +23,6 @@ class Response
      * @var int
      */
     protected $response_code = 200;
-
-    /**
-     * @var mixed|string
-     */
-    protected $type = 'json';
-    /**
-     * @var string[]
-     */
-    protected $types = [ 'json', 'xml', 'csv', 'text' ];
-
-    /**
-     * Response constructor.
-     * @param null $type
-     */
-    public function __construct($type = null)
-    {
-        if ($type !== null && isset($this->types)) {
-
-            $this->type = $type;
-        }
-    }
 
     /**
      * @param $msg
@@ -71,6 +54,11 @@ class Response
         return $this;
     }
 
+    /**
+     * @param $var
+     * @param string $key
+     * @return $this
+     */
     public function add($var, $key = 'result')
     {
 
@@ -85,7 +73,71 @@ class Response
     {
 
         http_response_code($this->response_code);
-        header('Content-Type: application/json');
+
+        switch ($this->getType()) {
+            case 'text':
+                header('Content-Type: text/plain');
+                $this->outputText();
+                break;
+            default:
+                header('Content-Type: application/json');
+                $this->outputJson();
+        }
+
+    }
+
+    /**
+     * @return mixed|string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set output type
+     * @param string enum $type
+     */
+    public function setType($type)
+    {
+        if ($type !== null && in_array($type, $this->types)) {
+
+            $this->type = $type;
+        }
+    }
+
+    /**
+     *
+     */
+    public function outputText()
+    {
+
+        function outArray($array, $append = '')
+        {
+
+            foreach ($array as $key => $val) {
+
+                if (is_array($val) || is_object($val)) {
+
+                    outArray(
+                        is_object($val) ? get_object_vars($val) : $val,
+                        $append . ( $append === '' ? '' : '.' ) . $key
+                    );
+                } else {
+
+                    printf('%s%s%s: %s' . PHP_EOL, $append, $append === '' ? '' : '.', $key, $val);
+                }
+            }
+        }
+
+        outArray($this->result);
+    }
+
+    /**
+     *
+     */
+    public function outputJson()
+    {
         print json_encode($this->result);
     }
 }

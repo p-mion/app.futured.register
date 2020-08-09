@@ -75,15 +75,25 @@ class Request
 
         if ($this->params === null) {
 
-            $params = explode(self::DELIMITER, trim($_SERVER[ 'REQUEST_URI' ], self::DELIMITER));
+            $parts = parse_url(trim($_SERVER[ 'REQUEST_URI' ], self::DELIMITER));
 
             $this->params = [];
 
-            foreach ($this->param_map as $idx => $key) {
+            if (!empty($parts[ 'query' ])) {
 
-                if (!empty($params[ $idx ])) {
+                parse_str($parts[ 'query' ], $this->params);
+            }
 
-                    $this->params[ $key ] = $params[ $idx ];
+            if (!empty($parts[ 'path' ])) {
+
+                $params = explode(self::DELIMITER, $parts['path']);
+
+                foreach ($this->param_map as $idx => $key) {
+
+                    if (!empty($params[ $idx ])) {
+
+                        $this->params[ $key ] = $params[ $idx ];
+                    }
                 }
             }
         }
