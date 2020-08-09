@@ -1,4 +1,4 @@
 #!/bin/sh
 
-
-cat database/sql/init.sql | mysql -p -u devel --password=devel
+source .env
+cat ./database/sql/init.sql | mysql -p -u $default_user --password=$default_password
