@@ -36,16 +36,9 @@ class CashService
         return null;
     }
 
-    public function cancelPayment($bill_id)
-    {
-
-
-    }
-
     public function deletePayment($bill_id)
     {
-
-
+        return $this->billRepostory->delete($bill_id);
     }
 
     public function getAllBills($register_id)

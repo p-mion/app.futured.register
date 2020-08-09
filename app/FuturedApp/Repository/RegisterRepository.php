@@ -31,15 +31,15 @@ class RegisterRepository
     }
 
     /**
-     * @param string $token
+     * @param integer $register_id
      * @return Register|null
      */
-    public function get($id): ?Register
+    public function get($register_id): ?Register
     {
         $register = $this->getRegister();
         $result = \DB::instance()->getRecords(
             sprintf('SELECT * FROM `%s` WHERE id=:id', $register->getTableName()),
-            [ 'id' => (int) $id ],
+            [ 'id' => (int)$register_id ],
             $register
         );
 

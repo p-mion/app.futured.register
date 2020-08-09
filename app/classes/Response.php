@@ -18,7 +18,7 @@ class Response
     /**
      * @var int
      */
-    protected $response_code = 403;
+    protected $response_code = 200;
 
     /**
      * @var mixed|string
@@ -43,31 +43,38 @@ class Response
 
     /**
      * @param $msg
+     * @return Response
      */
     public function forbidden($msg)
     {
 
         $this->response_code = 403;
-        $this->response = [
+        $this->result = [
             'forbidden' => $msg,
         ];
+
+        return $this;
     }
 
     /**
      * @param $msg
+     * @return Response
      */
     public function notFound($msg)
     {
 
-        $this->response_code = 403;
-        $this->response = [
+        $this->response_code = 404;
+        $this->result = [
             'notfound' => $msg,
         ];
+
+        return $this;
     }
 
-    public function add($var, $key = 'result') {
+    public function add($var, $key = 'result')
+    {
 
-        $this->result[$key] = $var;
+        $this->result[ $key ] = $var;
         return $this;
     }
 
@@ -77,6 +84,7 @@ class Response
     public function output()
     {
 
+        http_response_code($this->response_code);
         header('Content-Type: application/json');
         print json_encode($this->result);
     }

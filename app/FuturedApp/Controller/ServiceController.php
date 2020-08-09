@@ -5,7 +5,12 @@ namespace FuturedApp\Controller;
 
 use FuturedApp\Request\ApiRequest;
 use FuturedApp\Service\CashService;
+use http\Env\Response;
 
+/**
+ * Class ServiceController
+ * @package FuturedApp\Controller
+ */
 class ServiceController
 {
 
@@ -22,32 +27,56 @@ class ServiceController
     public function all(ApiRequest $request)
     {
 
-        return (new \Response())->add($this->service->getAllBills(
+        return ( new \Response() )->add($this->service->getAllBills(
             $request->getParameter('register_id')), 'bills');
     }
 
     public function get(ApiRequest $request)
     {
-        return (new \Response())->add($this->service->getBill(
-            $request->getParameter('bill_id')
-        ), 'bill');
+        $bill = $this->service->getBill(
+            $request->getParameter('bill_id'));
 
+        $response = new \Response();
+        if ($bill) {
+
+            return $response->add($bill, 'bill');
+        }
+
+        return $response->notFound(sprintf(
+            'bill %d not found', $request->getParameter('bill_id')));
     }
 
     public function post(ApiRequest $request)
     {
         $data = $request->getPostData();
         $bill = $this->service->addPayment(
-            $data['register_id'],
-            $data['price'],
-            $data['amount']
+            $data[ 'register_id' ],
+            $data[ 'price' ],
+            $data[ 'amount' ]
         );
 
-        return (new \Response())->add($bill, 'bill');
+        if (!$bill) {
+
+            return ( new \Response() )->notFound('bill post method failed');
+        }
+
+        return ( new \Response() )->add($bill, 'bill');
     }
 
     public function delete(ApiRequest $request)
     {
 
+        $bill_id = $request->getParameter('bill_id');
+        $response = new \Response();
+        if ($this->service->deletePayment($bill_id)) {
+
+            $response->add(sprintf('bill %d deleted', $bill_id), 'success');
+        } else {
+
+            $response->add(sprintf('delete bill %d failed', $bill_id), 'error');
+        }
+
+        return $response;
     }
+
 }

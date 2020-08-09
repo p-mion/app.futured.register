@@ -39,25 +39,11 @@ class BillRepository
     {
         $bill = $this->getBill();
         return \DB::instance()->getRecords(
-            sprintf('SELECT * FROM `%s` WHERE register_id=:register_id', $bill->getTableName()),
+            sprintf('SELECT * FROM `%s` WHERE register_id=:register_id AND NOT canceled', $bill->getTableName()),
             [ 'register_id' => (int)$register_id ],
             $bill
         );
 
-    }
-
-    /**
-     * @param int $bill_id
-     * @return array
-     */
-    public function get($bill_id): array
-    {
-        $bill = $this->getBill();
-        return \DB::instance()->getRecords(
-            sprintf('SELECT * FROM `%s` WHERE id=:id', $bill->getTableName()),
-            [ 'id' => (int)$bill_id ],
-            $bill
-        );
     }
 
     public function getBill()
@@ -76,7 +62,8 @@ class BillRepository
      * @param int $amount
      * @return Bill|null
      */
-    public function create(Register $register, $price, $amount = 1) {
+    public function create(Register $register, $price, $amount = 1)
+    {
 
         $bill = $this->getBill();
 
@@ -116,5 +103,55 @@ class BillRepository
         $last_id = \DB::instance()->conn()->lastInsertId();
 
         return $this->get($last_id);
+    }
+
+    /**
+     * @param int $bill_id
+     * @return Bill|null
+     */
+    public function get($bill_id)
+    {
+        $bill = $this->getBill();
+        $result = \DB::instance()->getRecords(
+            sprintf('SELECT * FROM `%s` WHERE id=:id AND NOT canceled', $bill->getTableName()),
+            [ 'id' => (int)$bill_id ],
+            $bill
+        );
+
+        if (is_array($result)) {
+
+            $bill =  current($result);
+        } else {
+
+            $bill = null;
+        }
+
+        return $bill;
+    }
+
+    /**
+     * @param int $bill_id
+     * @return boolean
+     */
+    public function delete($bill_id)
+    {
+
+        $bill = $this->get($bill_id);
+
+        if ($bill) {
+
+            $stmt = \DB::instance()->conn()->prepare(sprintf(
+                'UPDATE `%s` SET canceled=1
+                     WHERE id=:bill_id',
+                $bill->getTableName()
+            ));
+
+            $stmt->execute([
+                'bill_id' => $bill->getId(),
+            ]);
+
+        }
+
+        return $bill !== null;
     }
 }

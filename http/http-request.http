@@ -1,23 +1,27 @@
-GET http://app.futured.register/v1/register/1/bill
+GET http://app.futured.register:8000/v1/register/1/bill
 X-Token: d2a57dc1d883fd21fb9951699df71cc7
 
 ###
-GET http://app.futured.register/v1/register/1/bill/2
+GET http://app.futured.register:8000/v1/register/1/bill/5
 X-Token: d2a57dc1d883fd21fb9951699df71cc7
 
 ### Send POST request with form body
-POST http://app.futured.register/v1/register/1/bill
+POST http://app.futured.register:8000/v1/register/1/bill
 X-Token: d2a57dc1d883fd21fb9951699df71cc7
 
 price=30.50&amount=1&register_id=1
 
 ### Send POST request with json body
-POST http://app.futured.register/v1/register/1/bill
+POST http://app.futured.register:8000/v1/register/1/bill
 X-Token: d2a57dc1d883fd21fb9951699df71cc7
 Content-Type: application/json
 
 {
-  "price": -30.25,
+  "price": 0,
   "amount": "1",
   "register_id": "1"
 }
+
+### Send POST request with json body
+DELETE http://app.futured.register/v1/register/1/bill/5
+X-Token: d2a57dc1d883fd21fb9951699df71cc7

@@ -52,7 +52,7 @@ class Bill
     public function setPriceRaw($price)
     {
         $this->setPrice( (float) $price);
-        return $this->price !== 0;
+        return $this->price !== 0.0;
     }
 
     /**
