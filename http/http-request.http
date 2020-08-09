@@ -1,3 +1,7 @@
+GET http://app.futured.register:8000/v1/register/1
+X-Token: d2a57dc1d883fd21fb9951699df71cc7
+
+###
 GET http://app.futured.register:8000/v1/register/1/bill
 X-Token: d2a57dc1d883fd21fb9951699df71cc7
 
@@ -17,7 +21,7 @@ X-Token: d2a57dc1d883fd21fb9951699df71cc7
 Content-Type: application/json
 
 {
-  "price": 0,
+  "price": 69.50,
   "amount": "1",
   "register_id": "1"
 }

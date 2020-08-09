@@ -13,15 +13,6 @@ class ApiRouter extends Router
     protected $version = 'v1';
 
     /**
-     * @return bool
-     */
-    public function access(ApiRequest $request)
-    {
-
-        return $request->getHeader('X-Token') === env('API_TOKEN');
-    }
-
-    /**
      * @return Response
      */
     public function response(ApiRequest $request)
@@ -52,12 +43,19 @@ class ApiRouter extends Router
                     case 'GET':
                     case 'HEAD':
 
-                        if ($request->hasParameter('bill_id')) {
+                        if (!$request->hasParameter('bill')) {
 
-                            $response = $controller->get($request);
+                            $response = $controller->summary($request);
+
                         } else {
 
-                            $response = $controller->all($request);
+                            if ($request->hasParameter('bill_id')) {
+
+                                $response = $controller->get($request);
+                            } else {
+
+                                $response = $controller->all($request);
+                            }
                         }
                         break;
                     case 'POST':
@@ -79,6 +77,15 @@ class ApiRouter extends Router
         }
 
         return ( new Response() )->forbidden('access denied');
+    }
+
+    /**
+     * @return bool
+     */
+    public function access(ApiRequest $request)
+    {
+
+        return $request->getHeader('X-Token') === env('API_TOKEN');
     }
 
 }

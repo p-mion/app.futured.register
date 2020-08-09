@@ -19,11 +19,18 @@ class ServiceController
      */
     protected $service;
 
+    /**
+     * ServiceController constructor.
+     */
     public function __construct()
     {
         $this->service = new CashService();
     }
 
+    /**
+     * @param ApiRequest $request
+     * @return \Response
+     */
     public function all(ApiRequest $request)
     {
 
@@ -31,6 +38,10 @@ class ServiceController
             $request->getParameter('register_id')), 'bills');
     }
 
+    /**
+     * @param ApiRequest $request
+     * @return \Response
+     */
     public function get(ApiRequest $request)
     {
         $bill = $this->service->getBill(
@@ -46,6 +57,30 @@ class ServiceController
             'bill %d not found', $request->getParameter('bill_id')));
     }
 
+    /**
+     * @param ApiRequest $request
+     * @return \Response
+     */
+    public function summary(ApiRequest $request)
+    {
+
+        $summary = $this->service->getSummary(
+            $request->getParameter('register_id'));
+
+        $response = new \Response();
+        if ($summary) {
+
+            return $response->add($summary, 'summary');
+        }
+
+        return $response->notFound(sprintf(
+            'register %d not found', $request->getParameter('register_id')));
+    }
+
+    /**
+     * @param ApiRequest $request
+     * @return \Response
+     */
     public function post(ApiRequest $request)
     {
         $data = $request->getPostData();
@@ -63,6 +98,10 @@ class ServiceController
         return ( new \Response() )->add($bill, 'bill');
     }
 
+    /**
+     * @param ApiRequest $request
+     * @return \Response
+     */
     public function delete(ApiRequest $request)
     {
 

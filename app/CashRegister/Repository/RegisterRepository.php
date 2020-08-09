@@ -2,7 +2,9 @@
 
 namespace CashRegister\Repository;
 
+use CashRegister\Model\Bill;
 use CashRegister\Model\Register;
+use CashRegister\Model\Summary;
 
 /**
  * Class RegisterRepository
@@ -62,5 +64,34 @@ class RegisterRepository
             $this->base = new Register();
         }
         return $this->base;
+    }
+
+    /**
+     * @param integer $register_id
+     * @return Summary
+     */
+    public function summary($register_id, Bill $bill)
+    {
+
+        $register = $this->get($register_id);
+        $summary = new Summary();
+
+        $result = \DB::instance()->getRecords(
+            sprintf('SELECT SUM(price) AS summary_price, 
+                MAX(created_at) AS bill_last_date
+                FROM `%s` WHERE register_id=:register_id AND NOT canceled
+                GROUP BY register_id', $bill->getTableName()),
+            [ 'register_id' => $register->getId() ],
+            $summary
+        );
+
+        if (is_array($result)) {
+
+            $summary = current($result);
+        }
+
+        $summary->setRegister($register);
+
+        return $summary;
     }
 }
