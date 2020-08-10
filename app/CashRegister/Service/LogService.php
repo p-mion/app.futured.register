@@ -33,7 +33,7 @@ class LogService
      */
     public function message($msg) {
 
-        \Log::message($msg);
+        \Log::message(sprintf("[%s] %s", $_SERVER['REQUEST_METHOD'], $msg));
     }
 
     /**
@@ -41,6 +41,6 @@ class LogService
      */
     public function error($msg) {
 
-        \Log::error($msg);
+        \Log::error(sprintf("[%s] %s", $_SERVER['REQUEST_METHOD'], $msg));
     }
 }
