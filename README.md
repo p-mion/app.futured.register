@@ -1,7 +1,13 @@
 # app.futured.register
 
-**build docker container with Makefile**
+**build docker app container with Makefile**
 
+```
+git clone https://github.com/p-mion/app.futured.register.git
+cd app.futured.register
+make
+make start
+```
 
 `make` - build php/mysql containers
 
@@ -26,3 +32,4 @@ Command:
 **app url**
 
 http://localhost:8001/
+
