@@ -4,6 +4,7 @@ namespace CashRegister\Repository;
 
 use CashRegister\Model\Bill;
 use CashRegister\Model\Register;
+use DB;
 
 /**
  * Class RegisterRepository
@@ -38,7 +39,7 @@ class BillRepository
     public function all($register_id): array
     {
         $bill = $this->getBill();
-        return \DB::instance()->getRecords(
+        return DB::instance()->getRecords(
             sprintf('SELECT * FROM `%s` WHERE register_id=:register_id AND NOT canceled', $bill->getTableName()),
             [ 'register_id' => (int)$register_id ],
             $bill
@@ -46,6 +47,9 @@ class BillRepository
 
     }
 
+    /**
+     * @return Bill
+     */
     public function getBill()
     {
 
@@ -77,7 +81,7 @@ class BillRepository
             return null;
         }
 
-        $stmt = \DB::instance()->conn()->prepare(sprintf(
+        $stmt = DB::instance()->conn()->prepare(sprintf(
             'INSERT INTO `%s` SET 
                      register_id=:register_id, price=:price, amount=:amount',
             $bill->getTableName()
@@ -100,7 +104,7 @@ class BillRepository
 
         // \DB::instance()->conn()->commit();
 
-        $last_id = \DB::instance()->conn()->lastInsertId();
+        $last_id = DB::instance()->conn()->lastInsertId();
 
         return $this->get($last_id);
     }
@@ -112,7 +116,7 @@ class BillRepository
     public function get($bill_id)
     {
         $bill = $this->getBill();
-        $result = \DB::instance()->getRecords(
+        $result = DB::instance()->getRecords(
             sprintf('SELECT * FROM `%s` WHERE id=:id AND NOT canceled', $bill->getTableName()),
             [ 'id' => (int)$bill_id ],
             $bill
@@ -140,7 +144,7 @@ class BillRepository
 
         if ($bill) {
 
-            $stmt = \DB::instance()->conn()->prepare(sprintf(
+            $stmt = DB::instance()->conn()->prepare(sprintf(
                 'UPDATE `%s` SET canceled=1
                      WHERE id=:bill_id',
                 $bill->getTableName()

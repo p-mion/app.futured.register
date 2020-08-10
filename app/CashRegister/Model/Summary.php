@@ -15,11 +15,15 @@ class Summary
     /**
      * @var string
      */
-    public $bill_last_date;
+    public $bill_last_date = '0000-00-00 00:00:00';
+    /**
+     * @var integer
+     */
+    public $bill_count = 0;
     /**
      * @var float
      */
-    public $summary_price;
+    public $summary_price = 0.00;
 
     /**
      * @return mixed
@@ -27,6 +31,14 @@ class Summary
     public function getLastBillDate()
     {
         return $this->last_bill_date;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getBillCount()
+    {
+        return $this->bill_count;
     }
 
     /**
@@ -40,10 +52,6 @@ class Summary
     {
         return $this->summary_price;
     }
-
-    /**
-     * @param float $summary_price
-     */
 
     /**
      * @return mixed

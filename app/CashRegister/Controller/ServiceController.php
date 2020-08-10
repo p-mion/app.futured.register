@@ -5,7 +5,6 @@ namespace CashRegister\Controller;
 
 use CashRegister\Request\ApiRequest;
 use CashRegister\Service\CashService;
-use http\Env\Response;
 
 /**
  * Class ServiceController

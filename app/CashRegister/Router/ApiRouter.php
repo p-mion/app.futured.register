@@ -18,6 +18,8 @@ class ApiRouter extends Router
     public function response(ApiRequest $request)
     {
 
+        \Log::message(sprintf('request method: %s', $request->getMethod()));
+
         $response = new Response();
         $response->setType($request->getParameter('output'));
 

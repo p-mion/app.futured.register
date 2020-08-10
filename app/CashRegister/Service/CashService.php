@@ -2,8 +2,10 @@
 
 namespace CashRegister\Service;
 
+use CashRegister\Model\Bill;
 use CashRegister\Repository\RegisterRepository;
 use CashRegister\Repository\BillRepository;
+use Log;
 
 /**
  * Class CashService
@@ -30,7 +32,7 @@ class CashService
      * @param $register_id
      * @param $price
      * @param int $amount
-     * @return \CashRegister\Model\Bill|null
+     * @return Bill|null
      */
     public function addPayment($register_id, $price, $amount = 1)
     {
@@ -41,7 +43,7 @@ class CashService
             $bill = $this->billRepostory->create($register, $price, $amount);
             if ($bill !== null) {
 
-                \Log::message(sprintf(__CLASS__ . ': bill %d, price: %s',
+                Log::message(sprintf(__CLASS__ . ': bill %d, price: %s',
                     $bill->getId(), $bill->getPrice()));
                 return $bill;
             }
@@ -72,7 +74,7 @@ class CashService
 
     /**
      * @param $bill_id
-     * @return \CashRegister\Model\Bill|null
+     * @return Bill|null
      */
     public function getBill($bill_id)
     {

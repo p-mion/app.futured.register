@@ -20,5 +20,8 @@
         "files": [
             "app/helpers/env.php"
         ]
+    },
+    "scripts": {
+        "run": "./install.sh"
     }
 }

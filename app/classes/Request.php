@@ -64,7 +64,7 @@ class Request
     {
 
         $data = $this->resolveParams();
-        return $data[ $key ] ?: null;
+        return isset($data[ $key ]) ? $data[ $key ] : null;
     }
 
     /**

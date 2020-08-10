@@ -1,22 +1,22 @@
-GET http://localhost:8001/v1/register/1
+GET http://localhost:8000/v1/register/1
 X-Token: d2a57dc1d883fd21fb9951699df71cc7
 
 ###
-GET http://localhost:8001/v1/register/1/bill
+GET http://localhost:8000/v1/register/1/bill
 X-Token: d2a57dc1d883fd21fb9951699df71cc7
 
 ###
-GET http://localhost:8001/v1/register/1/bill/9
+GET http://localhost:8000/v1/register/1/bill/9
 X-Token: d2a57dc1d883fd21fb9951699df71cc7
 
 ### Send POST request with form body
-POST http://localhost:8001/v1/register/1/bill
+POST http://localhost:8000/v1/register/1/bill
 X-Token: d2a57dc1d883fd21fb9951699df71cc7
 
 price=30.50&amount=1&register_id=1
 
 ### Send POST request with json body
-POST http://localhost:8001/v1/register/1/bill
+POST http://localhost:8000/v1/register/1/bill
 X-Token: d2a57dc1d883fd21fb9951699df71cc7
 Content-Type: application/json
 
@@ -25,5 +25,5 @@ Content-Type: application/json
 }
 
 ### Send POST request with json body
-DELETE http://localhost:8001/v1/register/1/bill/5
+DELETE http://localhost:8000/v1/register/1/bill/5
 X-Token: d2a57dc1d883fd21fb9951699df71cc7
