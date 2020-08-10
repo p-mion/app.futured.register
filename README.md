@@ -7,6 +7,9 @@ git clone https://github.com/p-mion/app.futured.register.git
 cd app.futured.register
 make
 make start
+>sh console.sh summary
+>sh console.sh add 56.50
+>sh console.sh list
 ```
 
 `make` - build php/mysql containers
