@@ -20,5 +20,8 @@
         "files": [
             "app/helpers/env.php"
         ]
+    },
+    "scripts": {
+        "run-local-server": "sh ./run-local-server.sh"
     }
 }
