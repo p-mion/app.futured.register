@@ -2,10 +2,6 @@ GET http://localhost:8001/v1/register/1
 X-Token: d2a57dc1d883fd21fb9951699df71cc7
 
 ###
-GET http://localhost:8000/v1/register/1
-X-Token: d2a57dc1d883fd21fb9951699df71cc7
-
-###
 GET http://localhost:8001/v1/register/1/bill
 X-Token: d2a57dc1d883fd21fb9951699df71cc7
 
