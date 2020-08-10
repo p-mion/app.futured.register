@@ -13,18 +13,8 @@ class Log
     public static function message($msg)
     {
 
-        self::out($msg);
-
-    }
-
-    /**
-     * @param string $msg
-     * @param int $level
-     */
-    public static function out($msg, $level = LOG_INFO)
-    {
-
         file_put_contents('php://stdout', $msg.PHP_EOL);
+
     }
 
     /**
@@ -33,6 +23,6 @@ class Log
     public static function error($msg)
     {
 
-        self::out($msg, LOG_ERR);
+        file_put_contents('php://stderr', $msg.PHP_EOL);
     }
 }

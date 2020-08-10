@@ -5,6 +5,7 @@ namespace CashRegister\Controller;
 
 use CashRegister\Request\ApiRequest;
 use CashRegister\Service\CashService;
+use CashRegister\Service\LogService;
 
 /**
  * Class ServiceController
@@ -33,8 +34,16 @@ class ServiceController
     public function all(ApiRequest $request)
     {
 
-        return ( new \Response() )->add($this->service->getAllBills(
-            $request->getParameter('register_id')), 'bills');
+        LogService::instance()->message(__METHOD__);
+
+        $result = $this->service->getAllBills(
+            $request->getParameter('register_id')
+        );
+
+        $response = new \Response();
+        $response->add($result, 'bills');
+
+        return $response;
     }
 
     /**
@@ -43,6 +52,9 @@ class ServiceController
      */
     public function get(ApiRequest $request)
     {
+
+        LogService::instance()->message(__METHOD__);
+
         $bill = $this->service->getBill(
             $request->getParameter('bill_id'));
 
@@ -62,6 +74,7 @@ class ServiceController
      */
     public function summary(ApiRequest $request)
     {
+        LogService::instance()->message(__METHOD__);
 
         $summary = $this->service->getSummary(
             $request->getParameter('register_id'));
@@ -82,6 +95,8 @@ class ServiceController
      */
     public function post(ApiRequest $request)
     {
+        LogService::instance()->message(__METHOD__);
+
         $data = $request->getPostData();
         $bill = $this->service->addPayment(
             $request->getParameter('register_id'),
@@ -103,6 +118,7 @@ class ServiceController
      */
     public function delete(ApiRequest $request)
     {
+        LogService::instance()->message(__METHOD__);
 
         $bill_id = $request->getParameter('bill_id');
         $response = new \Response();

@@ -69,7 +69,6 @@ class CashService
     {
 
         return $this->billRepostory->all($register_id);
-
     }
 
     /**

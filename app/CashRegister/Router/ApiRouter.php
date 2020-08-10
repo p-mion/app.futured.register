@@ -18,8 +18,6 @@ class ApiRouter extends Router
     public function response(ApiRequest $request)
     {
 
-        \Log::message(sprintf('request method: %s', $request->getMethod()));
-
         $response = new Response();
         $response->setType($request->getParameter('output'));
 
@@ -28,7 +26,7 @@ class ApiRouter extends Router
 
             if ($this->version !== $request->getParameter('version')) {
 
-                $response->forbidden('ap version mismatch');
+                $response->forbidden('api version mismatch');
                 return $response;
             }
 
@@ -75,10 +73,12 @@ class ApiRouter extends Router
                         $response->notFound('service router action empty');
                 }
             }
+
             $response->setType($request->getParameter('output'));
             return $response;
         }
 
+        \Log::error('access denied');
         return $response->forbidden('access denied');
     }
 
