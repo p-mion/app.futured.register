@@ -90,7 +90,9 @@ class RegisterRepository
             $summary = current($result);
         }
 
-        $summary->setRegister($register);
+        if (is_object($summary)) {
+            $summary->setRegister($register);
+        }
 
         return $summary;
     }

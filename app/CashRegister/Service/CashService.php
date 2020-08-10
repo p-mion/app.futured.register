@@ -41,6 +41,8 @@ class CashService
             $bill = $this->billRepostory->create($register, $price, $amount);
             if ($bill !== null) {
 
+                \Log::message(sprintf(__CLASS__ . ': bill %d, price: %s',
+                    $bill->getId(), $bill->getPrice()));
                 return $bill;
             }
         }

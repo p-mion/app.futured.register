@@ -3,7 +3,7 @@
 VERSION="v1"
 REGISTER=1
 ARG_NUM=$#
-source .env
+export $(xargs <.env)
 
 if [ $ARG_NUM -eq "0" ]; then
 
@@ -15,7 +15,6 @@ if [ $ARG_NUM -eq "0" ]; then
 	echo "  add <price> [amount] - add payment"
 	echo "  cancel <bill_id> - cancel payment"
 	echo ""
-	env
 	exit;
 fi
 
