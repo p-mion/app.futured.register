@@ -61,6 +61,6 @@ case $REQ_COMMAND in
 
 curl -s -X "$REQ_METHOD" -d "$REQ_DATA" \
 	-H "X-Token: $API_TOKEN" \
-	"$APP_URL/$VERSION/register/$REGISTER$URL_PARAMS?output=text"
+	"$APP_DOCKER_URL/$VERSION/register/$REGISTER$URL_PARAMS?output=text"
 
 echo ""

@@ -24,7 +24,7 @@ class Log
     public static function out($msg, $level = LOG_INFO)
     {
 
-        syslog($level, $msg);
+        file_put_contents('php://stdout', $msg.PHP_EOL);
     }
 
     /**
