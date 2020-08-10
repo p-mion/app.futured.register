@@ -9,7 +9,7 @@
 
 `make stop` - start app/db containers
 
-*** console script ***
+**console script**
 
 `sh ./console.sh` 
 
@@ -23,6 +23,6 @@ Command:
   cancel <bill_id> - cancel payment
 ```
 
-*** app url ***
+**app url**
 
 http://localhost:8001/
