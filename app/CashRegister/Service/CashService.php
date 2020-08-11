@@ -19,6 +19,11 @@ class CashService
     protected $registerRepostory;
 
     /**
+     * @var BillRepository
+     */
+    protected $billRepostory;
+
+    /**
      * CashService constructor.
      */
     public function __construct()
