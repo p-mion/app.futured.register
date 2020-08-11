@@ -24,6 +24,6 @@ Content-Type: application/json
   "price": 85.50
 }
 
-### Send POST request with json body
+### Send DELETE request with bill_id in uri
 DELETE http://localhost:8001/v1/register/1/bill/5
 X-Token: d2a57dc1d883fd21fb9951699df71cc7
