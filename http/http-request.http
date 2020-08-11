@@ -13,7 +13,7 @@ X-Token: d2a57dc1d883fd21fb9951699df71cc7
 POST http://localhost:8001/v1/register/1/bill
 X-Token: d2a57dc1d883fd21fb9951699df71cc7
 
-price=30.50&amount=1&register_id=1
+price=30.50&amount=1
 
 ### Send POST request with json body
 POST http://localhost:8001/v1/register/1/bill
